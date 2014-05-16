@@ -109,12 +109,13 @@ public class Task {
 	 * @return temps alloué - temps de traitement de la tâche
 	 */
 	public int effectuer(int temps){
-		if(temps<effectue){
-			effectue -= temps;
+		int restant = duree-effectue;
+		if(temps<restant){
+			effectue += temps;
 			return 0;
 		}else{
 			effectue = duree;
-			return temps-effectue;
+			return temps -(restant);
 		}
 	}
 	/**
@@ -123,5 +124,8 @@ public class Task {
 	 */
 	public int getReste(){
 		return duree-effectue;
+	}
+	public String toString(){
+		return ""+num+"  "+intitule+"  "+debut+"  "+effectue+"/"+duree+"  "+prio+"";
 	}
 }
