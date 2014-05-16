@@ -49,5 +49,11 @@ public abstract class AbstractOrdonnanceur implements Ordonnanceur{
 		return list.get(minPos);
 	}
 	
+	public void effectuer(int i) {
+		for(Coeur coeur : this.coeurList) {
+			coeur.effectuer(i);
+		}
+	}
+	
 	protected abstract List<Task> getOrderedList(TaskList list);
 }
