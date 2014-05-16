@@ -55,25 +55,53 @@ public class Coeur {
 	 * @param temps
 	 */
 	public void effectuer(int temps){
-		int save = temps;
-		for(Task tache : list){
-			temps = tache.effectuer(temps);
-			if(temps ==0){
-				tempsTraitement -= save;
-				return;
-			}else{
-				tempsTraitement = temps;
+		//on enleve au temps de traitement restant le temps à effectuer
+		tempsTraitement -= temps;
+		//si le résultat est négatif, on le borne à 0
+		if (tempsTraitement<0){
+			tempsTraitement = 0;
+		}
+		//tant qu'il reste du temps et que la liste n'est pas vide
+		while(temps>0 && !list.isEmpty()){
+			//on traite la premiere tache
+			temps = list.get(0).effectuer(temps);
+			//si cette dernière est finie, on la supprime de la liste
+			if(list.get(0).isFinished()){
+				list.remove(0);
 			}
 		}
-		tempsTraitement -=temps;
 	}
 	/**
 	 * initialise ou reinitialise le coeur
 	 */
 	public void reset(){
 		//initialise le temps de traitement restant à 0
-		int tempsTraitement=0;
+		tempsTraitement=0;
 		//crée une liste de tâches vide 
 		list = new ArrayList<Task>();
+	}
+	/**
+	 * retourne une chaine contenant les taches du coeur hyerarchisées 
+	 */
+	public String toString(){
+		String chaine = "";
+		int i=0;
+		for(Task tache : list){
+			chaine = chaine+espacement(i)+tache.toString()+"\n";
+			i+=8;
+		}
+		return chaine;
+	}
+	/**
+	 * 
+	 * @param nbEsp
+	 * @return une chaine de characéres contenant nbEsp espaces
+	 */
+	private String espacement(int nbEsp){
+		String chaine = "";
+		for(int i=0;i<nbEsp;i++){
+			chaine = chaine + " ";
+		}
+		return chaine;
 	}
 }
