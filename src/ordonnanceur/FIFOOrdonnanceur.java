@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FIFOOrdonnanceur extends AbstractOrdonnanceur {
+public class FIFOOrdonnanceur extends SimpleOrdonnanceur {
 
 	public FIFOOrdonnanceur(int nbCoeur) {
 		super(nbCoeur);

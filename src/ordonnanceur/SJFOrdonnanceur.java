@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SJFOrdonnanceur extends AbstractOrdonnanceur {
+public class SJFOrdonnanceur extends SimpleOrdonnanceur {
 
 	public SJFOrdonnanceur(int nbCoeur) {
 		super(nbCoeur);

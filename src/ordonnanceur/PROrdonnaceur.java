@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class PROrdonnaceur extends AbstractOrdonnanceur {
+public class PROrdonnaceur extends SimpleOrdonnanceur {
 
 	public PROrdonnaceur(int nbCoeur) {
 		super(nbCoeur);
