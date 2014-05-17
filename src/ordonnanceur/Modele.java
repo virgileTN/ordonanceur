@@ -17,20 +17,20 @@ public class Modele {
 		switch(typOrd){
 		//mode    First In First out
 		case "FIFO" :
-			ordo = new FifoOrdonnanceur(NbCoeurs);
+			ordo = new FIFOOrdonnanceur(NbCoeurs);
 			break;
-		//mode Round Robin
+		/*//mode Round Robin
 		case "RR" :
-			ordo = new RrOrdonnanceur(NbCoeurs,quantum);
+			ordo = new RROrdonnanceur(NbCoeurs,quantum);
 			break;
 		//mode Priority
 		case "PR" :
-			ordo = new PrOrdonnanceur(NbCoeurs);
+			ordo = new PROrdonnanceur(NbCoeurs);
 			break;
 		//mode shortest remaining Time
 		case "SRT" :
-			ordo = new SrtOrdonnanceur(NbCoeurs);
-			break;
+			ordo = new SRTOrdonnanceur(NbCoeurs);
+			break;*/
 		}
 	}
 	public List<Coeur> getResult(){

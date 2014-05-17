@@ -13,7 +13,7 @@ public abstract class TriOrdonnanceur extends AbstractOrdonnanceur{
 	protected List<Task> getOrderedList(TaskList list) {
 		List<Task> ordered = new ArrayList<Task>(list.getSize());
 		
-		for(int i = 0; i < ordered.size(); i++) {
+		for(int i = 0; i < list.getSize(); i++) {
 			ordered.add(new Task(list.getTask(i)));
 		}
 		
