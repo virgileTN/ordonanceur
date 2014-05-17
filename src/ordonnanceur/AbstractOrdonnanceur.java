@@ -1,6 +1,10 @@
 package ordonnanceur;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractOrdonnanceur implements Ordonnanceur{
@@ -21,32 +25,50 @@ public abstract class AbstractOrdonnanceur implements Ordonnanceur{
 	}
 	
 	public List<Coeur> getResult(TaskList list) {
-		List<Task> ordered = this.getOrderedList(list);
 		
 		for(Coeur coeur : this.coeurList) {
 			coeur.reset();
 		}
 		
-		for(Task task : ordered) {
-			Coeur nextCoeur = earlierFinishedCoeur(this.coeurList);
-			
-			nextCoeur.addTask(task);
+		if(!list.isEmpty()) {
+			int time = 0;
+			// LinkedList car on a beaucoup d'ajout et de retrait
+			List<Task> pendingList = new LinkedList<Task>();
+			Iterator<Task> it = list.iterator();
+			Task futureTask = it.next();
+			// Tant qu'il reste des taches à traiter
+			while(futureTask != null || !pendingList.isEmpty()) {
+				// Tant qu'il reste des taches à ajouter à la liste des taches en attente
+				while(futureTask != null && (time >= futureTask.getDebut() || pendingList.isEmpty())) {
+					pendingList.add(futureTask);
+					if(it.hasNext())
+						futureTask = it.next();
+					else
+						futureTask = null;
+				}
+				
+				Coeur nextCoeur = earlierFinishedCoeur(this.coeurList);
+				time = nextCoeur.getReste();
+				Task task = nextTask(pendingList);
+				nextCoeur.addTask(task);
+				System.out.println("Ajout : " + task);
+				System.out.println("En attente :");
+				pendingList.remove(task);
+				for(Task t : pendingList)
+					System.out.println(t);
+			}
+			pendingList.add(futureTask);
 		}
 		
 		return this.coeurList;
 	}
-	
+
 	private Coeur earlierFinishedCoeur(List<Coeur> list) {
-		int min = 0;
-		int minPos = 0;
-		
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getReste() < min) {
-				minPos = i;
+		return Collections.min(list, new Comparator<Coeur>() {
+			public int compare(Coeur c1, Coeur c2) {
+				return Integer.compare(c1.getReste(), c2.getReste());
 			}
-		}
-		
-		return list.get(minPos);
+		});
 	}
 	
 	public void effectuer(int i) {
@@ -55,5 +77,5 @@ public abstract class AbstractOrdonnanceur implements Ordonnanceur{
 		}
 	}
 	
-	protected abstract List<Task> getOrderedList(TaskList list);
+	protected abstract Task nextTask(List<Task> pendingList);
 }

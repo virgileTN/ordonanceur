@@ -2,7 +2,7 @@ package ordonnanceur;
 
 import java.util.Scanner;
 
-public class Task {
+public class Task implements Comparable<Task> {
 	private int num, debut, duree, prio, effectue;
 	private String intitule;
 	public Task(){
@@ -127,5 +127,10 @@ public class Task {
 	}
 	public String toString(){
 		return ""+num+"  "+intitule+"  "+debut+"  "+effectue+"/"+duree+"  "+prio+"";
+	}
+	
+	@Override
+	public int compareTo(Task other) {
+		return Integer.compare(this.debut, other.debut);
 	}
 }
